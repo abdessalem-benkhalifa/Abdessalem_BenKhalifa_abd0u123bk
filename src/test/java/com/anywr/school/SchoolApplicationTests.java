@@ -39,7 +39,6 @@ class SchoolApplicationTests {
 	
 	@Before
 	public void setUp() {
-    	System.out.println("------------RABBI SAHHEL------------entered in setUp() for junit testing------------RABBI SAHHEL-------------");
         // Initialize test data
         //studentList = new List<Student>();
     	SchoolClass class1 = new SchoolClass("Class A", new Teacher("Teacher1_firtName", "Teacher1_lastName"));
@@ -54,7 +53,6 @@ class SchoolApplicationTests {
 
     @Test
     public void testGetAllStudents() throws Exception {
-    	System.out.println("------------RABBI SAHHEL 1------------entered in testGetAllStudents() for junit testing------------RABBI SAHHEL-------------");
     	mockMvc.perform(get("/api/students"))
                 .andExpect(status().isOk())
                 //.andExpect(jsonPath("$.content", hasSize(4)))
@@ -68,7 +66,6 @@ class SchoolApplicationTests {
 
     @Test
     public void testGetStudentsByClassName() throws Exception {
-    	System.out.println("------------RABBI SAHHEL 2------------entered in testGetStudentsByClassName() for junit testing------------RABBI SAHHEL-------------");
     	mockMvc.perform(get("/api/students?className=Class A"))
                 .andExpect(status().isOk())
                // .andExpect(jsonPath("$.content", hasSize(2)))
@@ -80,7 +77,6 @@ class SchoolApplicationTests {
 
     @Test
     public void testGetStudentsByTeacherFullName() throws Exception {
-    	System.out.println("------------RABBI SAHHEL 3------------entered in testGetStudentsByTeacherFullName() for junit testing------------RABBI SAHHEL-------------");
     	mockMvc.perform(get("/api/students?teacherFullName=Teacher1_firtName Teacher1_lastName"))
                 .andExpect(status().isOk())
                 //.andExpect(jsonPath("$.content", hasSize(2)))
@@ -92,7 +88,6 @@ class SchoolApplicationTests {
 
     @Test
     public void testGetStudentsByClassNameAndTeacherFullName() throws Exception {
-    	System.out.println("------------RABBI SAHHEL 4------------entered in testGetStudentsByClassNameAndTeacherFullName() for junit testing------------RABBI SAHHEL-------------");
     	mockMvc.perform(get("/api/students?className=Class A&teacherFullName=John Doe"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.numberOfElements", is(0)))
@@ -101,7 +96,6 @@ class SchoolApplicationTests {
 
     @Test
     public void testGetStudentsWithPagination() throws Exception {
-    	System.out.println("------------RABBI SAHHEL 5------------entered in testGetStudentsWithPagination() for junit testing------------RABBI SAHHEL-------------");
     	mockMvc.perform(get("/api/students?page=0&size=2"))
                 .andExpect(status().isOk())
                 //.andExpect(jsonPath("$.content", hasSize(2)))

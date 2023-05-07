@@ -55,13 +55,9 @@ public class StudentService {
         }
         
         if (className != null && teacherFullName != null) {
-        	logger.info("-------------------------getStudents -- className != null && teacherFullName != null");
             Optional<SchoolClass> schoolClass = schoolClassRepository.findByName(className);
-            logger.info("getStudents -- schoolClass.isPresent() : "+schoolClass.isPresent());
             Optional<Teacher> teacher = findTeacherByName(teacherFullName);
-            logger.info("getStudents -- teacher.isPresent() : "+teacher.isPresent());
             if (schoolClass.isPresent() && teacher.isPresent()) {
-            	logger.info("getStudents -- schoolClass.isPresent() && teacher.isPresent()");
             	List<Student> students = studentRepository.findBySchoolClass_NameAndSchoolClass_Teacher_FirstNameAndSchoolClass_Teacher_LastName(
                         className, teacher.get().getFirstName(), teacher.get().getLastName(), pageable);
             	if (students.size() != 0) {
@@ -77,9 +73,7 @@ public class StudentService {
             return studentDTOPage;
         } else if (className != null) {
             Optional<SchoolClass> schoolClass = schoolClassRepository.findByName(className);
-            logger.info("-------------------------getStudents -- className != null");
             if (schoolClass.isPresent()) {
-            	logger.info("-------------------------getStudents -- className != null && schoolClass.isPresent()");
             	List<Student> students = studentRepository.findBySchoolClass_Name(className, pageable);
             	
             	if (students.size() != 0) {
@@ -97,10 +91,8 @@ public class StudentService {
             }
             return studentDTOPage;
         } else if (teacherFullName != null) {
-        	logger.info("-------------------------getStudents -- teacherFullName != null");
         	Optional<Teacher> teacher = findTeacherByName(teacherFullName);
             if (teacher.isPresent()) {
-            	logger.info("-------------------------getStudents -- teacherFullName != null && teacher.isPresent()");
             	List<Student> students = studentRepository.findBySchoolClass_Teacher_Id(teacher.get().getId(), pageable);
             	if (students.size() != 0) {
             		List<StudentDTO> studentDTOs = new ArrayList<>();
@@ -117,9 +109,7 @@ public class StudentService {
 
     private Optional<Teacher> findTeacherByName(String teacherFullName) {
         String[] names = teacherFullName.split("\\s+");
-        logger.info("-------------------------findTeacherByName -- names.length == "+names.length);
         if (names.length == 2) {
-        	logger.info("-------------------------findTeacherByName -- names.length == 2");
             return teacherRepository.findByFirstNameAndLastName(names[0], names[1]);
         }
         return Optional.empty();
